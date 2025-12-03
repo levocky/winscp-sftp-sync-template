@@ -33,4 +33,96 @@ This template is intended for engineers who need fast, reliable, repeatable SFTP
 
 ## Usage
 
-[winscp-sync-examples.md](https://github.com/user-attachments/files/23899272/winscp-sync-examples.md)
+## 1. Basic download mode
+
+```powershell
+.\winsscp-sftp-sync.ps1 `
+  -PpkPath "C:\Keys\mykey.ppk" `
+  -LocalPath "C:\Data\Downloads" `
+  -RemoteRoot "/remote/messages" `
+  -RemoteHost "sftp.example.com" `
+  -UserName "myuser" `
+  -Pattern "*msg*"
+```
+
+---
+
+## 2. Download while preserving remote folder structure
+
+```powershell
+.\winsscp-sftp-sync.ps1 `
+  -PpkPath "C:\Keys\mykey.ppk" `
+  -LocalPath "C:\Data\Tree" `
+  -RemoteRoot "/remote/logs" `
+  -RemoteHost "sftp.example.com" `
+  -UserName "myuser" `
+  -Pattern "*.gz" `
+  -PreserveRemoteStructure $true
+```
+
+---
+
+## 3. Download everything (no pattern filter)
+
+```powershell
+.\winsscp-sftp-sync.ps1 `
+  -PpkPath "C:\Keys\mykey.ppk" `
+  -LocalPath "C:\Dump" `
+  -RemoteRoot "/data/archive" `
+  -RemoteHost "sftp.example.com" `
+  -UserName "myuser" `
+  -Pattern "*"
+```
+
+---
+
+## 4. Use a custom SFTP port
+
+```powershell
+.\winsscp-sftp-sync.ps1 `
+  -PpkPath "C:\Keys\mykey.ppk" `
+  -LocalPath "C:\Downloads" `
+  -RemoteRoot "/export/messages" `
+  -RemoteHost "10.20.30.40" `
+  -RemotePort 8022 `
+  -UserName "myuser"
+```
+
+---
+
+## 5. Synchronize local → remote (mirror with delete)
+
+```powershell
+.\winsscp-sftp-sync.ps1 `
+  -PpkPath "C:\Keys\mykey.ppk" `
+  -LocalPath "C:\Data\Out" `
+  -RemoteRoot "/remote/inbound" `
+  -RemoteHost "sftp.example.com" `
+  -UserName "myuser" `
+  -Mode "SyncRemote"
+```
+
+---
+
+## 6. Synchronize with a custom remote path
+
+```powershell
+.\winsscp-sftp-sync.ps1 `
+  -PpkPath "D:\SSH\prod_key.ppk" `
+  -LocalPath "D:\Payload" `
+  -RemoteRoot "/opt/app/input" `
+  -RemoteHost "host.example.net" `
+  -UserName "deploy_user" `
+  -Mode "SyncRemote"
+```
+
+---
+
+## 7. Minimal example (uses placeholder defaults)
+
+```powershell
+.\winsscp-sftp-sync.ps1
+```
+
+---
+
